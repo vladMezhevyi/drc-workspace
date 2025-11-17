@@ -11,7 +11,7 @@ export class DrcClickableArea {
   private readonly hostEl = inject<ElementRef<HTMLElement>>(ElementRef);
 
   // Inputs
-  public readonly enabled = input<boolean>(true, { alias: '[drcClickableArea]' });
+  public readonly clickableDisabled = input<boolean>(false);
   public readonly interactiveSelectors = input<string[]>([]);
 
   // Outputs
@@ -39,7 +39,7 @@ export class DrcClickableArea {
   ]);
 
   protected onClick(e: MouseEvent): void {
-    if (!this.enabled()) return;
+    if (this.clickableDisabled()) return;
 
     const selection: string | undefined = this.getSelection();
     if (selection?.length) return;
