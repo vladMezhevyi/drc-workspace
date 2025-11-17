@@ -1,4 +1,4 @@
-import { Directive, ElementRef, inject, input, InputSignal, output } from '@angular/core';
+import { Directive, ElementRef, inject, input, output } from '@angular/core';
 
 @Directive({
   selector: '[drcClickableArea]',
