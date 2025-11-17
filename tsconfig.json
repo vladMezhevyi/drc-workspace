@@ -11,6 +11,11 @@
     "skipLibCheck": true,
     "isolatedModules": true,
     "experimentalDecorators": true,
+    "baseUrl": "./",
+    "paths": {
+      "@drc/sdk/*": ["projects/sdk/*"],
+      "@drc/sdk": ["projects/sdk"]
+    },
     "importHelpers": true,
     "target": "ES2022",
     "module": "preserve"
@@ -22,5 +27,19 @@
     "typeCheckHostBindings": true,
     "strictTemplates": true
   },
-  "files": []
+  "files": [],
+  "references": [
+    {
+      "path": "./projects/sdk/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/sdk/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/sdk-demo/tsconfig.app.json"
+    },
+    {
+      "path": "./projects/sdk-demo/tsconfig.spec.json"
+    }
+  ]
 }

@@ -3,5 +3,103 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
+    "sdk": {
+      "projectType": "library",
+      "root": "projects/sdk",
+      "sourceRoot": "projects/sdk",
+      "prefix": "drc",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "options": {
+            "project": "projects/sdk/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/sdk/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/sdk/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        }
+      }
+    },
+    "sdk-demo": {
+      "projectType": "application",
+      "root": "projects/sdk-demo",
+      "sourceRoot": "projects/sdk-demo/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "browser": "projects/sdk-demo/src/main.ts",
+            "tsConfig": "projects/sdk-demo/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/sdk-demo/public"
+              }
+            ],
+            "styles": ["projects/sdk-demo/src/styles.scss"]
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "sdk-demo:build:production"
+            },
+            "development": {
+              "buildTarget": "sdk-demo:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular/build:extract-i18n"
+        },
+        "test": {
+          "builder": "@angular/build:karma",
+          "options": {
+            "tsConfig": "projects/sdk-demo/tsconfig.spec.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/sdk-demo/public"
+              }
+            ],
+            "styles": ["projects/sdk-demo/src/styles.scss"]
+          }
+        }
+      }
+    }
   }
 }
